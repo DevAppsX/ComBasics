@@ -21,40 +21,42 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComBasicsTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
-                }
+                MyApp()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    val names: List<String> = listOf("World", "Compose")
-    val expanded = remember { mutableStateOf(false) }
-    val extraPadding = if (expanded.value) 48.dp else 0.dp
-    Column {
+fun MyApp(names: List<String> = listOf("World", "Compose")) {
+    Column(modifier = Modifier.padding(vertical = 4.dp)) {
         for (name in names) {
-            Surface(
-                color = MaterialTheme.colors.primary,
-                modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+            Greeting(name = name)
+        }
+    }
+}
+
+@Composable
+private fun Greeting(name: String) {
+    var expanded = remember { mutableStateOf(false) }
+    val extraPadding = if (expanded.value) 48.dp else 0.dp
+
+    Surface(
+        color = MaterialTheme.colors.primary,
+        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+    ) {
+        Row(modifier = Modifier.padding(24.dp)) {
+            Column(modifier = Modifier
+                .weight(1f)
+                .padding(bottom = extraPadding)
             ) {
-                Row(modifier = Modifier.padding(24.dp)) {
-                    Column(modifier = Modifier
-                        .weight(1f)
-                        .padding(bottom = extraPadding)
-                    ) {
-                        Text(text = "Hello, ")
-                        Text(text = name)
-                    }
-                    OutlinedButton(
-                        onClick = { expanded.value = !expanded.value  }
-                    ) {
-                        Text(if (expanded.value) "Show less" else "Show more")
-                    }
-                }
+                Text(text = "Hello, ")
+                Text(text = name)
+            }
+            OutlinedButton(
+                onClick = { expanded.value = !expanded.value }
+            ) {
+                Text(if (expanded.value) "Show less" else "Show more")
             }
         }
     }
@@ -64,7 +66,7 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     ComBasicsTheme {
-        Greeting("Android")
+        MyApp()
     }
 }
 
@@ -72,6 +74,6 @@ fun DefaultPreview() {
 @Composable
 fun AnotherPreview() {
     ComBasicsTheme {
-        Greeting("Another")
+        MyApp()
     }
 }
