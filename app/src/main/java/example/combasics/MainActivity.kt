@@ -26,7 +26,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+    Surface(color = MaterialTheme.colors.primary) {
+        Text (text = "Hello $name!")
+    }
+
 }
 
 @Preview(showBackground = true)
@@ -37,7 +40,7 @@ fun DefaultPreview() {
     }
 }
 
-@Preview(showBackground = true, name = "Text preview")
+@Preview(showBackground = false, name = "Text preview")
 @Composable
 fun AnotherPreview() {
     ComBasicsTheme {
