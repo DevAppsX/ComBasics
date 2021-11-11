@@ -96,6 +96,8 @@ fun OnBoardingScreen(onContinueClicked: () -> Unit) {
 @Composable
 fun OnBoardingPreview() {
     ComBasicsTheme {
+
+
         OnBoardingScreen(onContinueClicked = {})
     }
 }
