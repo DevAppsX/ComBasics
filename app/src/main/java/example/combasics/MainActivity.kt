@@ -25,10 +25,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun MyApp() {
-    Greetings()
-}
+    @Composable
+    fun MyApp() {
+        val shouldShowOnBoarding = remember { mutableStateOf(true) }
+
+        if (shouldShowOnBoarding.value) {
+            OnBoardingScreen(onContinueClicked = { shouldShowOnBoarding.value = false })
+        } else {
+            Greetings()
+        }
+    }
 
 @Composable
 fun Greetings(names: List<String> = listOf("World", "Compose")) {
@@ -66,11 +72,8 @@ private fun Greeting(name: String) {
 }
 
 @Composable
-fun OnBoardingScreen() {
-    // TODO: This state should be hoisted
-    val shouldShowOnBoarding = remember { mutableStateOf(true) }
-
-    Surface {
+fun OnBoardingScreen(onContinueClicked: () -> Unit) {
+        Surface {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -79,7 +82,7 @@ fun OnBoardingScreen() {
             Text("Welcome to the Compose Basics!")
             Button(
                 modifier = Modifier.padding(vertical = 24.dp),
-                onClick = { shouldShowOnBoarding.value = false }
+                onClick = onContinueClicked
             ) {
                 Text("Continue")
             }
@@ -91,21 +94,13 @@ fun OnBoardingScreen() {
 @Composable
 fun OnBoardingPreview() {
     ComBasicsTheme {
-        OnBoardingScreen()
+        OnBoardingScreen(onContinueClicked = {})
     }
 }
 
 @Preview(showBackground = true, widthDp = 320)
 @Composable
 fun DefaultPreview() {
-    ComBasicsTheme {
-        MyApp()
-    }
-}
-
-@Preview(showBackground = false, name = "Text preview")
-@Composable
-fun AnotherPreview() {
     ComBasicsTheme {
         MyApp()
     }
