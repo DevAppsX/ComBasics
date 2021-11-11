@@ -10,6 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp() {
-    val shouldShowOnBoarding = remember { mutableStateOf(true) }
+    val shouldShowOnBoarding = rememberSaveable { mutableStateOf(true) }
 
     if (shouldShowOnBoarding.value) {
         OnBoardingScreen(onContinueClicked = { shouldShowOnBoarding.value = false })
@@ -96,8 +97,6 @@ fun OnBoardingScreen(onContinueClicked: () -> Unit) {
 @Composable
 fun OnBoardingPreview() {
     ComBasicsTheme {
-
-
         OnBoardingScreen(onContinueClicked = {})
     }
 }
