@@ -27,16 +27,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-    @Composable
-    fun MyApp() {
-        val shouldShowOnBoarding = remember { mutableStateOf(true) }
+@Composable
+fun MyApp() {
+    val shouldShowOnBoarding = remember { mutableStateOf(true) }
 
-        if (shouldShowOnBoarding.value) {
-            OnBoardingScreen(onContinueClicked = { shouldShowOnBoarding.value = false })
-        } else {
-            Greetings()
-        }
+    if (shouldShowOnBoarding.value) {
+        OnBoardingScreen(onContinueClicked = { shouldShowOnBoarding.value = false })
+    } else {
+        Greetings()
     }
+}
 
 @Composable
 private fun Greetings(names: List<String> = List(1000) { "$it" } ) {
